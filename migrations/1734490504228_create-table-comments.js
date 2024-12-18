@@ -22,7 +22,6 @@ exports.up = (pgm) => {
     },
     parent_id: {
       type: 'VARCHAR(50)',
-      notNull: true,
       references: 'comments(id)',
     },
     inserted_at: {
@@ -33,8 +32,11 @@ exports.up = (pgm) => {
     is_delete: {
       type: 'boolean',
       notNull: true,
+      default: false,
     },
   });
 };
 
-exports.down = (pgm) => {};
+exports.down = (pgm) => {
+  pgm.dropTable('comments');
+};
