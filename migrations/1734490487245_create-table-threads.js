@@ -8,11 +8,11 @@ exports.up = (pgm) => {
     },
     title: {
       type: 'VARCHAR(50)',
-      unique: true,
+      notNull: true,
     },
     body: {
       type: 'VARCHAR(50)',
-      unique: true,
+      notNull: true,
     },
     owner: {
       type: 'VARCHAR(50)',
