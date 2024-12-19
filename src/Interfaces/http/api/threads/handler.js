@@ -8,13 +8,7 @@ class ThreadsHandler {
   }
 
   async postThreadHandler(request, h) {
-    // console.log('thread handler');
-    console.log(`request: ${JSON.stringify(request.payload)}`);
-    // console.log('LOH');
     const addThreadUseCase = this._container.getInstance(AddThreadUseCase.name);
-    // console.log('otw execute1');
-    // console.log(addThreadUseCase);
-    // console.log('otw execute2');
     const addedThread = await addThreadUseCase.execute({
       ...request.payload,
       userId: request.auth.credentials.id,

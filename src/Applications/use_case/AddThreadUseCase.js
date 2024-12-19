@@ -7,10 +7,7 @@ class AddThreadUseCase {
   }
 
   async execute(useCasePayload) {
-    console.log(index++);
-    console.log('executing');
     const thread = new AddThread(useCasePayload);
-    console.table(`thread: ${JSON.stringify(thread)}`);
 
     return this._threadRepository.addThread(thread);
   }
