@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 const pool = require('../src/Infrastructures/database/postgres/pool');
 
-const ThreadTableTestHelper = {
+const ThreadsTableTestHelper = {
   async findThreadById(threadId) {
     const query = {
       text: 'select 1 from threads where id = $1',
@@ -17,4 +17,4 @@ const ThreadTableTestHelper = {
   },
 };
 
-module.exports = ThreadTableTestHelper;
+module.exports = ThreadsTableTestHelper;
