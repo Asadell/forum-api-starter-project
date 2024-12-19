@@ -70,6 +70,7 @@ describe('ThreadRepositoryPostgres', () => {
       const registeredThread = await threadRepositoryPostgres.addThread(
         registerThread
       );
+      console.log(registeredUser);
       console.log(registeredThread);
       console.log(
         new AddedThread({
