@@ -63,13 +63,12 @@ describe('/threads endpoint', () => {
       expect(responseJson.message).toEqual('Missing authentication');
     });
 
+    // Add Thread with Bad Payload
     it('should response 400 when request payload not contain needed property', async () => {
       // Arrange
       const server = await createServer(container);
 
-      const failRequestPayload = {
-        title: 'newThreadTitle',
-      };
+      const failRequestPayload = {};
       const { accessToken } = await ServerTestHelper.getAccessToken({ server });
 
       // Action
