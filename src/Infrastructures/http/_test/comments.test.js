@@ -10,6 +10,7 @@ const createServer = require('../createServer');
 let accessToken = null;
 let userId = null;
 const threadId = 'thread-123';
+const commentId = 'comment-123';
 
 const requestPayloadThread = {
   title: 'newThreadTitle',
@@ -27,7 +28,7 @@ describe('/comments endpoint', () => {
     await pool.end();
   });
 
-  describe('when POST /comments', () => {
+  describe('when POST /threads/{threadId}/comments', () => {
     it('should response 201 and persisted comment', async () => {
       // Arrange
       const server = await createServer(container);
@@ -203,6 +204,43 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual('Thread tidak ditemukan');
+    });
+  });
+
+  describe('when DELETE /threads/{threadId}/comments/{commentId}', () => {
+    it('should response 201 and persisted comment', async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Prerequiresite
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+        server,
+      });
+      await ThreadsTableTestHelper.addThread({
+        ...requestPayloadThread,
+        id: threadId,
+        userId,
+      });
+      await CommentsTableTestHelper.addComment({
+        id: commentId,
+        content: 'content',
+        userId,
+        threadId,
+      });
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
     });
   });
 });
