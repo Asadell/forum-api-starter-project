@@ -9,7 +9,6 @@ class DeleteCommentUseCase {
   async execute(useCasePayload) {
     const comment = new DeleteComment(useCasePayload);
 
-    console.log(JSON.stringify(useCasePayload));
     await this._threadRepository.validateId(comment.threadId);
     await this._commentRepository.validateId(comment.commentId);
     await this._commentRepository.validateCommentOwner(

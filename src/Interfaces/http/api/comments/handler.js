@@ -34,10 +34,6 @@ class CommentsHandler {
       DeleteCommentUseCase.name
     );
 
-    console.log('== HANDLER ==');
-    console.log(request.params);
-    console.log(request.auth.credentials.id);
-
     await deleteCommentUseCase.execute({
       ...request.params,
       userId: request.auth.credentials.id,

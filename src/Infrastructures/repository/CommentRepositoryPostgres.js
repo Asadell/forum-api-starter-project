@@ -33,7 +33,6 @@ class CommentRepositoryPostgres extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      console.log('DELETAAAAAAA');
       throw new NotFoundError('Comment tidak ditemukan');
     }
   }
@@ -60,8 +59,6 @@ class CommentRepositoryPostgres extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      console.log(commentId);
-      console.log('DELETEEEEE');
       throw new NotFoundError('Comment tidak ditemukan');
     }
   }

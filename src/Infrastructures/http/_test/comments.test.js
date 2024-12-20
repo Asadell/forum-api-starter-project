@@ -242,5 +242,109 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
     });
+
+    it('should response 401 when request missing authentication', async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Prerequiresite
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+        server,
+      });
+      await ThreadsTableTestHelper.addThread({
+        ...requestPayloadThread,
+        id: threadId,
+        userId,
+      });
+      await CommentsTableTestHelper.addComment({
+        id: commentId,
+        content: 'content',
+        userId,
+        threadId,
+      });
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}`,
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(401);
+      expect(responseJson.error).toEqual('Unauthorized');
+      expect(responseJson.message).toEqual('Missing authentication');
+    });
+
+    it('should response 404 when request payload comment not found', async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Prerequiresite
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+        server,
+      });
+      await ThreadsTableTestHelper.addThread({
+        ...requestPayloadThread,
+        id: threadId,
+        userId,
+      });
+      const failCommentId = 'comment-321';
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${failCommentId}`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(404);
+      expect(responseJson.status).toEqual('fail');
+    });
+
+    it('should response 403 when request with another user', async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Prerequiresite
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+        server,
+        username: 'asadel',
+      });
+      await ThreadsTableTestHelper.addThread({
+        ...requestPayloadThread,
+        id: threadId,
+        userId,
+      });
+      const { accessToken: accessToken2, userId: userId2 } =
+        await ServerTestHelper.getAccessToken({
+          server,
+          username: 'asadell',
+        });
+      await CommentsTableTestHelper.addComment({
+        id: commentId,
+        content: 'content',
+        userId,
+        threadId,
+      });
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}`,
+        headers: {
+          Authorization: `Bearer ${accessToken2}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.status).toEqual('fail');
+    });
   });
 });
