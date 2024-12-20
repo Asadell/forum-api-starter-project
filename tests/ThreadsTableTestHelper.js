@@ -2,9 +2,21 @@
 const pool = require('../src/Infrastructures/database/postgres/pool');
 
 const ThreadsTableTestHelper = {
+  async addThread(thread) {
+    const { id, title, body, userId } = thread;
+
+    const query = {
+      text: 'INSERT INTO threads VALUES($1, $2, $3, $4) RETURNING id, title, owner',
+      values: [id, title, body, userId],
+    };
+
+    const result = await pool.query(query);
+    return result.rows;
+  },
+
   async findThreadById(threadId) {
     const query = {
-      text: 'select 1 from threads where id = $1',
+      text: 'SELECT 1 FROM threads WHERE id = $1',
       values: [threadId],
     };
 
@@ -13,7 +25,7 @@ const ThreadsTableTestHelper = {
   },
 
   async cleanTable() {
-    await pool.query('DELETE from threads WHERE 1=1');
+    await pool.query('DELETE FROM threads WHERE 1=1');
   },
 };
 

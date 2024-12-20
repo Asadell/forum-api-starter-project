@@ -1,5 +1,4 @@
 const AddThread = require('../../Domains/threads/entities/AddThread');
-let index = 1;
 
 class AddThreadUseCase {
   constructor({ threadRepository }) {
