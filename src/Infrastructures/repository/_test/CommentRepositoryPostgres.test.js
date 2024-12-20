@@ -2,6 +2,7 @@ const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelp
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const AddComment = require('../../../Domains/comments/entities/AddComment');
+const AddedComment = require('../../../Domains/comments/entities/AddedComment');
 const pool = require('../../database/postgres/pool');
 const CommentRepositoryPostgres = require('../CommentRepositoryPostgres');
 const ThreadRepositoryPostgres = require('../ThreadRepositoryPostgres');
@@ -37,7 +38,6 @@ describe('CommentRepositoryPostgres', () => {
 
   describe('addComment function', () => {
     it('should persist add comment and return added comment correctly', async () => {
-      console.log('== MULAI ==');
       // Arrange
       const comment = new AddComment({
         content: 'content',
@@ -55,10 +55,38 @@ describe('CommentRepositoryPostgres', () => {
 
       // Assert
       const comments = await CommentsTableTestHelper.findCommentById(
-        'thread-123'
+        'comment-123'
       );
       expect(comments).toHaveLength(1);
-      console.log('== SELESAI ==');
+    });
+
+    it('should return added comment correctly', async () => {
+      // Arrange
+      const registerComment = new AddComment({
+        content: 'content',
+        userId,
+        threadId,
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(
+        pool,
+        fakeIdGenerator
+      );
+
+      // Action
+      const registeredComment = await commentRepositoryPostgres.addComment(
+        registerComment
+      );
+
+      // Assert
+      expect(registeredComment).toStrictEqual(
+        new AddedComment({
+          id: 'comment-123',
+          content: registerComment.content,
+          owner: userId,
+        })
+      );
     });
   });
 });
