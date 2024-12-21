@@ -1,6 +1,6 @@
 const GetComment = require('../../Domains/comments/entities/GetComment');
 const GetReply = require('../../Domains/comments/entities/GetReply');
-
+// master
 class GetThreadUseCase {
   constructor({ threadRepository, commentRepository }) {
     this._threadRepository = threadRepository;
