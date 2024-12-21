@@ -13,7 +13,7 @@ describe('ThreadRepositoryPostgres', () => {
   beforeAll(async () => {
     await UsersTableTestHelper.addUser({
       id: userId,
-      username: 'dicoding',
+      username: 'asadel',
       password: 'secret',
       fullname: 'Dicoding Indonesia',
     });
@@ -106,6 +106,42 @@ describe('ThreadRepositoryPostgres', () => {
       await expect(
         threadRepositoryPostgres.validateId(threadId)
       ).resolves.not.toThrowError(NotFoundError);
+    });
+  });
+
+  describe('getThreadById function', () => {
+    it('should get thread correctly', async () => {
+      // Arrange
+      const registerThread = new AddThread({
+        title: 'dicoding',
+        body: 'Dicoding Indonesia',
+        userId,
+      });
+      await ThreadsTableTestHelper.addThread({
+        id: threadId,
+        title: 'dicoding',
+        body: 'Dicoding Indonesia',
+        userId,
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(
+        pool,
+        fakeIdGenerator
+      );
+      // const registeredThread = await threadRepositoryPostgres.addThread(
+      //   registerThread
+      // );
+
+      // Action
+      const getThread = await threadRepositoryPostgres.getThreadById(threadId);
+
+      // Assert
+      expect(getThread.id).toEqual(threadId);
+      expect(getThread.title).toEqual(registerThread.title);
+      expect(getThread.body).toEqual(registerThread.body);
+      expect(getThread).toHaveProperty('date');
+      expect(getThread.username).toEqual('asadel');
     });
   });
 });

@@ -4,6 +4,7 @@ const ServerTestHelper = require('../../../../tests/ServerTestHelper');
 const container = require('../../container');
 const createServer = require('../createServer');
 const pool = require('../../database/postgres/pool');
+const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 
 // Arrange for all
 const requestPayload = {
@@ -11,8 +12,12 @@ const requestPayload = {
   body: 'newThreadBody',
 };
 
+const threadId = 'thread-123';
+const commentId = 'comment-123';
+
 describe('/threads endpoint', () => {
   afterEach(async () => {
+    await CommentsTableTestHelper.cleanTable();
     await ThreadsTableTestHelper.cleanTable();
     await UsersTableTestHelper.cleanTable();
   });
@@ -119,5 +124,65 @@ describe('/threads endpoint', () => {
         'tidak dapat membuat thread baru karena tipe data tidak sesuai'
       );
     });
+  });
+
+  describe('when GET /threads/{threadId}', () => {
+    it('should response 200 and persisted thread', async () => {
+      // Arrange
+      const server = await createServer(container);
+      console.log('==== MULAI TEST ===');
+
+      const { userId } = await ServerTestHelper.getAccessToken({ server });
+      await ThreadsTableTestHelper.addThread({
+        ...requestPayload,
+        id: threadId,
+        userId,
+      });
+      await CommentsTableTestHelper.addComment({
+        id: commentId,
+        content: 'content',
+        userId,
+        threadId,
+      });
+
+      console.log('=== MULAI \\get ===');
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: `/threads/${threadId}`,
+      });
+      console.log('==== SELESAI TEST ===');
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+      expect(responseJson.data.thread).toBeDefined();
+    });
+
+    // Add Thread with Bad Payload
+    // it('should response 404 when threadId not found', async () => {
+    //   // Arrange
+    //   const server = await createServer(container);
+
+    //   const { accessToken } = await ServerTestHelper.getAccessToken({ server });
+    //   const failThreadId = 'thread-321';
+
+    //   // Action
+    //   const response = await server.inject({
+    //     method: 'GET',
+    //     url: `/threads/${failThreadId}`,
+    //     headers: {
+    //       Authorization: `Bearer ${accessToken}`,
+    //     },
+    //   });
+
+    //   console.log('=== MULAI2 ===');
+    //   // Assert
+    //   const responseJson = JSON.parse(response.payload);
+    //   expect(response.statusCode).toEqual(404);
+    //   expect(responseJson.status).toEqual('fail');
+    //   expect(responseJson.message).toBeDefined();
+    // });
   });
 });

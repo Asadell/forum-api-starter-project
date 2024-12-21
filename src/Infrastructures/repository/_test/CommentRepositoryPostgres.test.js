@@ -167,4 +167,32 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments).toHaveLength(0);
     });
   });
+
+  describe('getCommentsByThreadId function', () => {
+    it('should deleted comment correctly', async () => {
+      // Arrange
+      const comment = {
+        id: commentId,
+        content: 'content',
+        threadId,
+        userId,
+      };
+      const { currentCommentId } = await CommentsTableTestHelper.addComment(
+        comment
+      );
+
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action
+      const getComment = await commentRepositoryPostgres.getCommentsByThreadId(
+        threadId
+      );
+
+      // Arrange
+      expect(getComment[0].id).toEqual(commentId);
+      expect(getComment[0].content).toEqual(comment.content);
+      expect(getComment[0].username).toEqual('asadel');
+      expect(getComment[0]).toHaveProperty('date');
+    });
+  });
 });
