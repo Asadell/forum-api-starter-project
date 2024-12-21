@@ -15,26 +15,19 @@ class GetThreadUseCase {
       threadId
     );
 
-    if (comments.length > 0) {
-      thread.comments = await Promise.all(
-        comments.map(async (comment) => {
-          const replies = await this._commentRepository.getRepliesByCommentId(
-            comment.id
-          );
+    thread.comments = await Promise.all(
+      comments.map(async (comment) => {
+        const replies = await this._commentRepository.getRepliesByCommentId(
+          comment.id
+        );
 
-          const commentWithReplies = new GetComment(comment);
-          if (replies.length > 0) {
-            commentWithReplies.replies = replies.map(
-              (reply) => new GetReply(reply)
-            );
-          }
+        const commentWithReplies = new GetComment(comment);
+        commentWithReplies.replies =
+          replies.length > 0 ? replies.map((reply) => new GetReply(reply)) : [];
 
-          return commentWithReplies;
-        })
-      );
-    }
-
-    console.log(thread);
+        return commentWithReplies;
+      })
+    );
 
     return thread;
   }
