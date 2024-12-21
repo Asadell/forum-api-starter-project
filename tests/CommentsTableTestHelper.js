@@ -13,6 +13,17 @@ const CommentsTableTestHelper = {
     return response.rows[0];
   },
 
+  async addReply({ id, content, threadId, commentId, userId }) {
+    const query = {
+      text: 'INSERT INTO comments VALUES($1, $2, $3, $4, $5) RETURNING id',
+      values: [id, content, userId, threadId, commentId],
+    };
+
+    const response = await pool.query(query);
+
+    return response.rows[0];
+  },
+
   async findCommentById(commentId) {
     const query = {
       text: 'SELECT 1 FROM comments WHERE id = $1 AND is_delete != TRUE',

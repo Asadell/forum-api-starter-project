@@ -2,6 +2,7 @@ const AuthorizationError = require('../../Commons/exceptions/AuthorizationError'
 const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 const CommentRepository = require('../../Domains/comments/CommentRepository');
 const AddedComment = require('../../Domains/comments/entities/AddedComment');
+const AddedReply = require('../../Domains/comments/entities/AddedReply');
 
 class CommentRepositoryPostgres extends CommentRepository {
   constructor(pool, idGenerator) {
@@ -65,7 +66,7 @@ class CommentRepositoryPostgres extends CommentRepository {
 
   async getCommentsByThreadId(commentId) {
     const query = {
-      text: 'SELECT c.id, u.username, c.inserted_at AS date, c.content, c.is_delete FROM comments c INNER JOIN users u ON u.id = c.owner WHERE c.post_id = $1',
+      text: 'SELECT c.id, u.username, c.inserted_at::text AS date, c.content, c.is_delete FROM comments c INNER JOIN users u ON u.id = c.owner WHERE c.post_id = $1',
       values: [commentId],
     };
 
@@ -76,6 +77,46 @@ class CommentRepositoryPostgres extends CommentRepository {
     }
 
     return result.rows;
+  }
+
+  async addReply(reply) {
+    const { content, threadId, commentId, userId } = reply;
+    const id = `reply-${this._idGenerator()}`;
+
+    const query = {
+      text: 'INSERT INTO comments VALUES($1, $2, $3, $4, $5) RETURNING id, content, owner',
+      values: [id, content, userId, threadId, commentId],
+    };
+
+    const result = await this._pool.query(query);
+
+    return new AddedReply(result.rows[0]);
+  }
+
+  async validateReplyId(replyId) {
+    const query = {
+      text: 'SELECT 1 FROM comments WHERE id = $1 AND is_delete = FALSE',
+      values: [replyId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('Reply tidak ditemukan');
+    }
+  }
+
+  async deleteReply(replyId) {
+    const query = {
+      text: 'UPDATE comments SET is_delete = TRUE WHERE id = $1',
+      values: [replyId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('Reply tidak ditemukan');
+    }
   }
 }
 

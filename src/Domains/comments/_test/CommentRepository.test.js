@@ -21,5 +21,14 @@ describe('CommentRepository interface', () => {
     await expect(
       commentRepository.validateCommentOwner({})
     ).rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    await expect(commentRepository.addReply({})).rejects.toThrowError(
+      'REPLY_REPOSITORY.METHOD_NOT_IMPLEMENTED'
+    );
+    await expect(commentRepository.validateReplyId({})).rejects.toThrowError(
+      'REPLY_REPOSITORY.METHOD_NOT_IMPLEMENTED'
+    );
+    await expect(commentRepository.deleteReply({})).rejects.toThrowError(
+      'REPLY_REPOSITORY.METHOD_NOT_IMPLEMENTED'
+    );
   });
 });

@@ -6,6 +6,7 @@ class ThreadsHandler {
     this._container = container;
 
     this.postThreadHandler = this.postThreadHandler.bind(this);
+    this.getThreadHandler = this.getThreadHandler.bind(this);
   }
 
   async postThreadHandler(request, h) {
@@ -25,13 +26,11 @@ class ThreadsHandler {
   }
 
   async getThreadHandler(request, h) {
-    console.log('=== MULAI HANDLER');
     const getThreadUseCase = this._container.getInstance(GetThreadUseCase.name);
     const thread = await getThreadUseCase.execute({
       ...request.params,
     });
 
-    console.log('=== SELESAI HANDLER');
     const response = h.response({
       status: 'success',
       data: { thread },

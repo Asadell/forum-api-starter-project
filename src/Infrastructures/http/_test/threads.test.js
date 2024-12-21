@@ -130,7 +130,6 @@ describe('/threads endpoint', () => {
     it('should response 200 and persisted thread', async () => {
       // Arrange
       const server = await createServer(container);
-      console.log('==== MULAI TEST ===');
 
       const { userId } = await ServerTestHelper.getAccessToken({ server });
       await ThreadsTableTestHelper.addThread({
@@ -145,13 +144,11 @@ describe('/threads endpoint', () => {
         threadId,
       });
 
-      console.log('=== MULAI \\get ===');
       // Action
       const response = await server.inject({
         method: 'GET',
         url: `/threads/${threadId}`,
       });
-      console.log('==== SELESAI TEST ===');
 
       // Assert
       const responseJson = JSON.parse(response.payload);
@@ -177,7 +174,6 @@ describe('/threads endpoint', () => {
     //     },
     //   });
 
-    //   console.log('=== MULAI2 ===');
     //   // Assert
     //   const responseJson = JSON.parse(response.payload);
     //   expect(response.statusCode).toEqual(404);
