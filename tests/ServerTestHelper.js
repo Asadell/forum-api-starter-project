@@ -21,10 +21,10 @@ const ServerTestHelper = {
       url: '/authentications',
       payload: userPayload,
     });
-    console.log('responseUser');
-    console.log(JSON.parse(responseUser.payload).data);
-    console.log('responseAuth');
-    console.log(JSON.parse(responseAuth.payload).data);
+    // console.log('responseUser');
+    // console.log(JSON.parse(responseUser.payload).data);
+    // console.log('responseAuth');
+    // console.log(JSON.parse(responseAuth.payload).data);
 
     const { id: userId } = JSON.parse(responseUser.payload).data.addedUser;
     const { accessToken } = JSON.parse(responseAuth.payload).data;
