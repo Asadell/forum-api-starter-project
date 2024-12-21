@@ -5,7 +5,7 @@ class GetReply {
     const { id, content, date, username, is_delete } = payload;
 
     this.id = id;
-    this.content = is_delete ? content : '**balasan telah dihapus**';
+    this.content = is_delete ? '**balasan telah dihapus**' : content;
     this.date = date;
     this.username = username;
   }
