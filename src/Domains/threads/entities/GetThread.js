@@ -9,6 +9,7 @@ class GetThread {
     this.body = body;
     this.date = date;
     this.username = username;
+    this.comments = comments;
   }
 
   _verifyPayload({ id, title, body, date, username }) {

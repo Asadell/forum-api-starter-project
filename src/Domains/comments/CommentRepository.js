@@ -31,7 +31,7 @@ class CommentRepository {
     throw new Error('REPLY_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getRepliesByCommentId(commentId) {
+  async getRepliesByCommentId(threadId) {
     throw new Error('REPLY_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

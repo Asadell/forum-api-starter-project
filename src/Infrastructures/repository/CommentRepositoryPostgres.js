@@ -119,10 +119,10 @@ class CommentRepositoryPostgres extends CommentRepository {
     }
   }
 
-  async getRepliesByCommentId(commentId) {
+  async getRepliesByCommentId(threadId) {
     const query = {
-      text: 'SELECT c.id, c.content, c.inserted_at::text AS date, u.username, c.is_delete FROM comments c INNER JOIN users u ON u.id = c.owner WHERE c.parent_id = $1',
-      values: [commentId],
+      text: 'SELECT c.id, c.content, c.inserted_at::text AS date, u.username, c.parent_id as comment, c.is_delete FROM comments c INNER JOIN users u ON u.id = c.owner WHERE c.post_id = $1',
+      values: [threadId],
     };
 
     const result = await this._pool.query(query);

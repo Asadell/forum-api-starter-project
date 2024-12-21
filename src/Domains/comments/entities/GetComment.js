@@ -7,6 +7,7 @@ class GetComment {
     this.id = id;
     this.username = username;
     this.date = date;
+    this.replies = replies;
 
     if (is_delete === true) {
       this.content = '**komentar telah dihapus**';

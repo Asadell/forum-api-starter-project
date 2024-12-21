@@ -12,13 +12,13 @@ describe('GetThreadUseCase', () => {
       threadId: 'thread-h_2FkLZhtgBKY2kh4CC02',
     };
 
-    const mockGetThread = new GetThread({
+    const mockGetThread = {
       id: 'thread-h_2FkLZhtgBKY2kh4CC02',
       title: 'sebuah thread',
       body: 'sebuah body thread',
       date: '2021-08-08T07:19:09.775Z',
       username: 'dicoding',
-    });
+    };
 
     const mockGetComment = {
       id: 'comment-_pby2_tmXV6bcvcdev8xk',
@@ -78,13 +78,13 @@ describe('GetThreadUseCase', () => {
       threadId: 'thread-h_2FkLZhtgBKY2kh4CC02',
     };
 
-    const mockGetThread = new GetThread({
+    const mockGetThread = {
       id: 'thread-h_2FkLZhtgBKY2kh4CC02',
       title: 'sebuah thread',
       body: 'sebuah body thread',
       date: '2021-08-08T07:19:09.775Z',
       username: 'dicoding',
-    });
+    };
 
     const mockGetComment = {
       id: 'comment-_pby2_tmXV6bcvcdev8xk',
@@ -147,13 +147,13 @@ describe('GetThreadUseCase', () => {
       threadId: 'thread-h_2FkLZhtgBKY2kh4CC02',
     };
 
-    const mockGetThread = new GetThread({
+    const mockGetThread = {
       id: 'thread-h_2FkLZhtgBKY2kh4CC02',
       title: 'sebuah thread',
       body: 'sebuah body thread',
       date: '2021-08-08T07:59:16.198Z',
       username: 'dicoding',
-    });
+    };
 
     const mockGetComment = [
       {
