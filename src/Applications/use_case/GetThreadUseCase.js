@@ -21,16 +21,20 @@ class GetThreadUseCase {
           const replies = await this._commentRepository.getRepliesByCommentId(
             comment.id
           );
-          if (replies.length === 0) {
-            return new GetComment(comment);
+
+          const commentWithReplies = new GetComment(comment);
+          if (replies.length > 0) {
+            commentWithReplies.replies = replies.map(
+              (reply) => new GetReply(reply)
+            );
           }
-          return {
-            ...new GetComment(comment),
-            replies: replies.map((reply) => new GetReply(reply)),
-          };
+
+          return commentWithReplies;
         })
       );
     }
+
+    console.log(thread);
 
     return thread;
   }

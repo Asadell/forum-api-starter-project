@@ -66,7 +66,7 @@ class CommentRepositoryPostgres extends CommentRepository {
 
   async getCommentsByThreadId(commentId) {
     const query = {
-      text: 'SELECT c.id, u.username, c.inserted_at::text AS date, c.content, c.is_delete FROM comments c INNER JOIN users u ON u.id = c.owner WHERE c.post_id = $1',
+      text: 'SELECT c.id, u.username, c.inserted_at::text AS date, c.content, c.is_delete FROM comments c INNER JOIN users u ON u.id = c.owner WHERE parent_id is null AND c.post_id = $1',
       values: [commentId],
     };
 
