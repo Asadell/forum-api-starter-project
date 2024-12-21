@@ -172,7 +172,7 @@ describe('CommentRepositoryPostgres', () => {
   });
 
   describe('getCommentsByThreadId function', () => {
-    it('should deleted comment correctly', async () => {
+    it('should get comment correctly', async () => {
       // Arrange
       const comment = {
         id: commentId,
@@ -319,6 +319,40 @@ describe('CommentRepositoryPostgres', () => {
 
       expect(comments1).toHaveLength(1);
       expect(comments2).toHaveLength(0);
+    });
+  });
+
+  describe('getRepliesByCommentId function', () => {
+    it('should get reply correctly', async () => {
+      // Arrange
+      const comment = {
+        id: commentId,
+        content: 'content',
+        threadId,
+        userId,
+      };
+      const reply = {
+        id: replyId,
+        content: 'reply content',
+        threadId,
+        commentId,
+        userId,
+      };
+      await CommentsTableTestHelper.addComment(comment);
+      await CommentsTableTestHelper.addReply(reply);
+
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action
+      const getReplies = await commentRepositoryPostgres.getRepliesByCommentId(
+        commentId
+      );
+
+      // Arrange
+      expect(getReplies[0].id).toEqual(replyId);
+      expect(getReplies[0].content).toEqual(reply.content);
+      expect(getReplies[0].username).toEqual('asadel');
+      expect(getReplies[0]).toHaveProperty('date');
     });
   });
 });
