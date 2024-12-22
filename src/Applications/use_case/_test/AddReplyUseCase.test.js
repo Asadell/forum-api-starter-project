@@ -1,17 +1,20 @@
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const AddedReply = require('../../../Domains/comments/entities/AddedReply');
+const AddReply = require('../../../Domains/comments/entities/AddReply');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const AddReplyUseCase = require('../AddReplyUseCase');
 
 const replyId = 'reply-123';
+const threadId = 'thread-123';
+const commentId = 'comment-123';
 
 describe('AddReplyUseCase', () => {
   it('should orchestrating the add reply action correctly', async () => {
     // Arrange
     const useCasePayload = {
       content: 'content',
-      threadId: 'thread-123',
-      commentId: 'comment-123',
+      threadId,
+      commentId,
       userId: 'user-123',
     };
 
@@ -50,6 +53,16 @@ describe('AddReplyUseCase', () => {
         id: replyId,
         content: useCasePayload.content,
         owner: useCasePayload.userId,
+      })
+    );
+    expect(mockThreadRepository.validateId).toBeCalledWith(threadId);
+    expect(mockCommentRepository.validateId).toBeCalledWith(commentId);
+    expect(mockCommentRepository.addReply).toBeCalledWith(
+      new AddReply({
+        content: 'content',
+        threadId,
+        commentId,
+        userId: 'user-123',
       })
     );
   });

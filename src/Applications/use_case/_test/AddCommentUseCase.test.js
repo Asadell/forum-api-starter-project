@@ -1,13 +1,16 @@
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
+const AddComment = require('../../../Domains/comments/entities/AddComment');
 const AddedComment = require('../../../Domains/comments/entities/AddedComment');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const AddCommentUseCase = require('../AddCommentUseCase');
+
+const threadId = 'thread-123';
 
 describe('AddCommentUseCase', () => {
   it('should orchestrating the add thread action correctly', async () => {
     const useCasePayload = {
       content: 'content',
-      threadId: 'thread-123',
+      threadId,
       userId: 'user-123',
     };
 
@@ -41,6 +44,14 @@ describe('AddCommentUseCase', () => {
         id: 'comment-123',
         content: useCasePayload.content,
         owner: useCasePayload.userId,
+      })
+    );
+    expect(mockThreadRepository.validateId).toBeCalledWith(threadId);
+    expect(mockCommentRepository.addComment).toBeCalledWith(
+      new AddComment({
+        content: 'content',
+        threadId,
+        userId: 'user-123',
       })
     );
   });

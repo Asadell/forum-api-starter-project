@@ -32,4 +32,28 @@ describe('a GetThread entities', () => {
       'GET_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION'
     );
   });
+
+  it('should contain correct property and value', () => {
+    // Arrange
+    const payload = {
+      id: 'thread-123',
+      title: 'body',
+      body: 'body',
+      date: '2021-08-08T07:19:09.775Z',
+      username: 'asadel',
+    };
+    const expected = {
+      id: 'thread-123',
+      title: 'body',
+      body: 'body',
+      date: '2021-08-08T07:19:09.775Z',
+      username: 'asadel',
+    };
+
+    // Action
+    const getThread = new GetThread(payload);
+
+    // Action and Assert
+    expect(getThread).toStrictEqual(new GetThread(expected));
+  });
 });

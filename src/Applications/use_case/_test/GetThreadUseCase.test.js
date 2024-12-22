@@ -63,7 +63,7 @@ describe('GetThreadUseCase', () => {
     const getThread = await getThreadUseCase.execute(useCasePayload);
 
     // Assert
-    const expected = JSON.stringify({
+    const expected = {
       id: 'thread-h_2FkLZhtgBKY2kh4CC02',
       title: 'sebuah thread',
       body: 'sebuah body thread',
@@ -85,11 +85,9 @@ describe('GetThreadUseCase', () => {
           ],
         },
       ],
-    });
+    };
 
-    const received = JSON.stringify(getThread);
-
-    expect(received).toStrictEqual(expected);
+    expect(getThread).toMatchObject(expected);
 
     expect(mockThreadRepository.validateId).toBeCalledWith(
       useCasePayload.threadId
@@ -153,7 +151,7 @@ describe('GetThreadUseCase', () => {
     const getThread = await getThreadUseCase.execute(useCasePayload);
 
     // Assert
-    const expected = JSON.stringify({
+    const expected = {
       id: 'thread-h_2FkLZhtgBKY2kh4CC02',
       title: 'sebuah thread',
       body: 'sebuah body thread',
@@ -168,11 +166,9 @@ describe('GetThreadUseCase', () => {
           replies: [],
         },
       ],
-    });
+    };
 
-    const received = JSON.stringify(getThread);
-
-    expect(received).toStrictEqual(expected);
+    expect(getThread).toMatchObject(expected);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
       useCasePayload.threadId
     );
@@ -245,7 +241,7 @@ describe('GetThreadUseCase', () => {
     const getThread = await getThreadUseCase.execute(useCasePayload);
 
     // Assert
-    const expected = JSON.stringify({
+    const expected = {
       id: 'thread-h_2FkLZhtgBKY2kh4CC02',
       title: 'sebuah thread',
       body: 'sebuah body thread',
@@ -273,12 +269,9 @@ describe('GetThreadUseCase', () => {
           ],
         },
       ],
-    });
+    };
 
-    const received = JSON.stringify(getThread);
-
-    expect(received).toStrictEqual(expected);
-
+    expect(getThread).toMatchObject(expected);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
       useCasePayload.threadId
     );

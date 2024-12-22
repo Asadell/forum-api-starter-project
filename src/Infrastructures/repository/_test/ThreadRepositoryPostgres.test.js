@@ -143,5 +143,21 @@ describe('ThreadRepositoryPostgres', () => {
       expect(getThread).toHaveProperty('date');
       expect(getThread.username).toEqual('asadel');
     });
+
+    it('should throw NotFoundError when thread not found', async () => {
+      // Arrange
+      const failThreadId = 'thread-321';
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(
+        pool,
+        fakeIdGenerator
+      );
+
+      // Action n Assert
+      await expect(
+        threadRepositoryPostgres.getThreadById(failThreadId)
+      ).rejects.toThrowError(NotFoundError);
+    });
   });
 });

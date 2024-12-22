@@ -169,6 +169,17 @@ describe('CommentRepositoryPostgres', () => {
 
       expect(comments).toHaveLength(0);
     });
+
+    it('should throw NotFoundError when comment not found', async () => {
+      // Arrange
+      const failCommentId = 'comment-321';
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action n Assert
+      await expect(
+        commentRepositoryPostgres.deleteComment(failCommentId)
+      ).rejects.toThrowError(NotFoundError);
+    });
   });
 
   describe('getCommentsByThreadId function', () => {
@@ -191,11 +202,23 @@ describe('CommentRepositoryPostgres', () => {
         threadId
       );
 
-      // Arrange
+      // Assert
       expect(getComment[0].id).toEqual(commentId);
-      expect(getComment[0].content).toEqual(comment.content);
       expect(getComment[0].username).toEqual('asadel');
       expect(getComment[0]).toHaveProperty('date');
+      expect(getComment[0].content).toEqual(comment.content);
+      expect(getComment[0].is_delete).toEqual(false);
+    });
+
+    it('should throw NotFoundError when comment not found', async () => {
+      // Arrange
+      const failCommentId = 'comment-321';
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action n Assert
+      await expect(
+        commentRepositoryPostgres.getCommentsByThreadId(failCommentId)
+      ).rejects.toThrowError(NotFoundError);
     });
   });
 
@@ -320,6 +343,18 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments1).toHaveLength(1);
       expect(comments2).toHaveLength(0);
     });
+
+    it('should deleted reply correctly', async () => {
+      // Arrange
+      const failReplyId = 'reply-321';
+
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action n Arrange
+      await expect(
+        commentRepositoryPostgres.deleteReply(failReplyId)
+      ).rejects.toThrowError(NotFoundError);
+    });
   });
 
   describe('getRepliesByCommentId function', () => {
@@ -348,11 +383,12 @@ describe('CommentRepositoryPostgres', () => {
         commentId
       );
 
-      // Arrange
+      // Assert
       expect(getReplies[0].id).toEqual(replyId);
       expect(getReplies[0].content).toEqual(reply.content);
-      expect(getReplies[0].username).toEqual('asadel');
       expect(getReplies[0]).toHaveProperty('date');
+      expect(getReplies[0].username).toEqual('asadel');
+      expect(getReplies[0].is_delete).toEqual(false);
     });
   });
 });
