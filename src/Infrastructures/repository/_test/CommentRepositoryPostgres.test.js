@@ -148,6 +148,24 @@ describe('CommentRepositoryPostgres', () => {
         commentRepositoryPostgres.validateCommentOwner(commentId, userId2)
       ).rejects.toThrowError(AuthorizationError);
     });
+
+    it('should not throw AuthorizationError when No Authentication', async () => {
+      // Arrange
+      const comment = {
+        id: commentId,
+        content: 'content',
+        threadId,
+        userId,
+      };
+      await CommentsTableTestHelper.addComment(comment);
+
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+
+      // Action n Assert
+      await expect(
+        commentRepositoryPostgres.validateCommentOwner(commentId, userId)
+      ).resolves.not.toThrowError(AuthorizationError);
+    });
   });
 
   describe('deleteComment function', () => {
@@ -191,9 +209,7 @@ describe('CommentRepositoryPostgres', () => {
         threadId,
         userId,
       };
-      const { currentCommentId } = await CommentsTableTestHelper.addComment(
-        comment
-      );
+      await CommentsTableTestHelper.addComment(comment);
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 

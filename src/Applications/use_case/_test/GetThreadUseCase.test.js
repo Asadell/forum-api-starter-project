@@ -26,6 +26,7 @@ describe('GetThreadUseCase', () => {
         username: 'johndoe',
         date: '2021-08-08T07:22:33.555Z',
         content: 'sebuah comment',
+        is_delete: false,
       },
     ];
 
@@ -35,6 +36,7 @@ describe('GetThreadUseCase', () => {
         content: 'sebuah balasan',
         date: '2021-08-08T08:07:01.522Z',
         username: 'dicoding',
+        is_delete: false,
       },
     ];
 
@@ -123,6 +125,7 @@ describe('GetThreadUseCase', () => {
         username: 'johndoe',
         date: '2021-08-08T07:22:33.555Z',
         content: 'sebuah comment',
+        is_delete: false,
       },
     ];
 
@@ -169,11 +172,15 @@ describe('GetThreadUseCase', () => {
     };
 
     expect(getThread).toMatchObject(expected);
+    expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
       useCasePayload.threadId
     );
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
       useCasePayload.threadId
+    );
+    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
+      mockGetComment[0].id
     );
   });
 
@@ -197,6 +204,7 @@ describe('GetThreadUseCase', () => {
         username: 'johndoe',
         date: '2021-08-08T07:22:33.555Z',
         content: 'sebuah comment',
+        is_delete: false,
       },
     ];
 
@@ -213,6 +221,7 @@ describe('GetThreadUseCase', () => {
         content: 'sebuah balasan',
         date: '2021-08-08T08:07:01.522Z',
         username: 'dicoding',
+        is_delete: false,
       },
     ];
 
@@ -272,11 +281,15 @@ describe('GetThreadUseCase', () => {
     };
 
     expect(getThread).toMatchObject(expected);
+    expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
       useCasePayload.threadId
     );
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
       useCasePayload.threadId
+    );
+    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
+      mockGetComment[0].id
     );
   });
 });

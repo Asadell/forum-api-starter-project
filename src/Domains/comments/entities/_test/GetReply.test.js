@@ -54,17 +54,18 @@ describe('a GetReply entities', () => {
     expect(getReply).toStrictEqual(new GetReply(expected));
   });
 
-  it('should contain correct property and value with trus is_delete', () => {
+  it('should contain correct property and value with true is_delete', () => {
     // Arrange
     const payload = {
       id: 'reply-123',
       content: 'reply content',
       date: '2021-08-08T07:19:09.775Z',
       username: 'asadel',
+      is_delete: true,
     };
     const expected = {
       id: 'reply-123',
-      content: 'reply content',
+      content: '**balasan telah dihapus**',
       date: '2021-08-08T07:19:09.775Z',
       username: 'asadel',
     };
