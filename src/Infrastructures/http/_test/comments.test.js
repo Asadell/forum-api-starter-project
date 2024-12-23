@@ -7,8 +7,8 @@ const pool = require('../../database/postgres/pool');
 const createServer = require('../createServer');
 
 // Arrange for all
-let accessToken = null;
-let userId = null;
+// let accessToken = null;
+// let userId = null;
 const threadId = 'thread-123';
 const commentId = 'comment-123';
 const replyId = 'reply-123';
@@ -35,9 +35,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const responseServer = await ServerTestHelper.getAccessToken({ server });
-      accessToken = responseServer.accessToken;
-      userId = responseServer.userId;
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({ server });
       await ThreadsTableTestHelper.addThread({
         ...requestPayloadThread,
         id: threadId,
@@ -72,9 +70,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const responseServer = await ServerTestHelper.getAccessToken({ server });
-      accessToken = responseServer.accessToken;
-      userId = responseServer.userId;
+      const { userId } = await ServerTestHelper.getAccessToken({ server });
       await ThreadsTableTestHelper.addThread({
         ...requestPayloadThread,
         id: threadId,
@@ -106,9 +102,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const responseServer = await ServerTestHelper.getAccessToken({ server });
-      accessToken = responseServer.accessToken;
-      userId = responseServer.userId;
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({ server });
       await ThreadsTableTestHelper.addThread({
         ...requestPayloadThread,
         id: threadId,
@@ -132,7 +126,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual(
-        'tidak dapat membuat comment baru karena properti yang dibutuhkan tidak ada'
+        'tidak dapat membuat comment baru karena properti yang dibutuhkan tidak ada',
       );
     });
 
@@ -141,9 +135,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const responseServer = await ServerTestHelper.getAccessToken({ server });
-      accessToken = responseServer.accessToken;
-      userId = responseServer.userId;
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({ server });
       await ThreadsTableTestHelper.addThread({
         ...requestPayloadThread,
         id: threadId,
@@ -171,7 +163,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual(
-        'tidak dapat membuat comment baru karena tipe data tidak sesuai'
+        'tidak dapat membuat comment baru karena tipe data tidak sesuai',
       );
     });
 
@@ -180,9 +172,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const responseServer = await ServerTestHelper.getAccessToken({ server });
-      accessToken = responseServer.accessToken;
-      userId = responseServer.userId;
+      const { accessToken, userId } = await ServerTestHelper.getAccessToken({ server });
 
       const requestPayloadComment = {
         content: 'content',
@@ -249,7 +239,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+      const { userId } = await ServerTestHelper.getAccessToken({
         server,
       });
       await ThreadsTableTestHelper.addThread({
@@ -312,7 +302,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+      const { userId } = await ServerTestHelper.getAccessToken({
         server,
         username: 'asadel',
       });
@@ -321,11 +311,10 @@ describe('/comments endpoint', () => {
         id: threadId,
         userId,
       });
-      const { accessToken: accessToken2, userId: userId2 } =
-        await ServerTestHelper.getAccessToken({
-          server,
-          username: 'asadell',
-        });
+      const { accessToken: accessToken2 } = await ServerTestHelper.getAccessToken({
+        server,
+        username: 'asadell',
+      });
       await CommentsTableTestHelper.addComment({
         id: commentId,
         content: 'content',
@@ -396,7 +385,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+      const { userId } = await ServerTestHelper.getAccessToken({
         server,
       });
       await ThreadsTableTestHelper.addThread({
@@ -468,7 +457,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual(
-        'tidak dapat membuat reply baru karena properti yang dibutuhkan tidak ada'
+        'tidak dapat membuat reply baru karena properti yang dibutuhkan tidak ada',
       );
     });
 
@@ -511,7 +500,7 @@ describe('/comments endpoint', () => {
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
       expect(responseJson.message).toEqual(
-        'tidak dapat membuat reply baru karena tipe data tidak sesuai'
+        'tidak dapat membuat reply baru karena tipe data tidak sesuai',
       );
     });
 
@@ -607,7 +596,7 @@ describe('/comments endpoint', () => {
       const server = await createServer(container);
 
       // Prerequiresite
-      const { accessToken, userId } = await ServerTestHelper.getAccessToken({
+      const { userId } = await ServerTestHelper.getAccessToken({
         server,
       });
       await ThreadsTableTestHelper.addThread({
@@ -694,11 +683,7 @@ describe('/comments endpoint', () => {
       const { userId } = await ServerTestHelper.getAccessToken({
         server,
       });
-      const { accessToken: accessToken2 } =
-        await ServerTestHelper.getAccessToken({
-          server,
-          username: 'AAsadel',
-        });
+      const { accessToken: accessToken2 } = await ServerTestHelper.getAccessToken({ server, username: 'AAsadel' });
       await ThreadsTableTestHelper.addThread({
         ...requestPayloadThread,
         id: threadId,

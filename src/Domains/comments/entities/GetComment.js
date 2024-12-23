@@ -20,12 +20,7 @@ class GetComment {
       throw new Error('GET_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
-    if (
-      typeof id !== 'string' ||
-      typeof username !== 'string' ||
-      typeof date !== 'string' ||
-      typeof content !== 'string'
-    ) {
+    if (typeof id !== 'string' || typeof username !== 'string' || typeof date !== 'string' || typeof content !== 'string') {
       throw new Error('GET_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }

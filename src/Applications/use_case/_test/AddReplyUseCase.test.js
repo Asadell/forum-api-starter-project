@@ -53,7 +53,7 @@ describe('AddReplyUseCase', () => {
         id: replyId,
         content: useCasePayload.content,
         owner: useCasePayload.userId,
-      })
+      }),
     );
     expect(mockThreadRepository.validateId).toBeCalledWith(threadId);
     expect(mockCommentRepository.validateId).toBeCalledWith(commentId);
@@ -63,7 +63,7 @@ describe('AddReplyUseCase', () => {
         threadId,
         commentId,
         userId: 'user-123',
-      })
+      }),
     );
   });
 });

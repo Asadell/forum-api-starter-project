@@ -16,13 +16,7 @@ class GetThread {
       throw new Error('GET_THREAD.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
-    if (
-      typeof id !== 'string' ||
-      typeof title !== 'string' ||
-      typeof body !== 'string' ||
-      typeof date !== 'string' ||
-      typeof username !== 'string'
-    ) {
+    if (typeof id !== 'string' || typeof title !== 'string' || typeof body !== 'string' || typeof date !== 'string' || typeof username !== 'string') {
       throw new Error('GET_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }

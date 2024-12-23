@@ -39,7 +39,7 @@ describe('ThreadRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -61,12 +61,12 @@ describe('ThreadRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
       const registeredThread = await threadRepositoryPostgres.addThread(
-        registerThread
+        registerThread,
       );
 
       // Assert
@@ -75,7 +75,7 @@ describe('ThreadRepositoryPostgres', () => {
           id: threadId,
           title: registerThread.title,
           owner: userId,
-        })
+        }),
       );
     });
   });
@@ -87,7 +87,7 @@ describe('ThreadRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        threadRepositoryPostgres.validateId(threadId)
+        threadRepositoryPostgres.validateId(threadId),
       ).rejects.toThrowError(NotFoundError);
     });
 
@@ -104,7 +104,7 @@ describe('ThreadRepositoryPostgres', () => {
 
       // Action n Arrange
       await expect(
-        threadRepositoryPostgres.validateId(threadId)
+        threadRepositoryPostgres.validateId(threadId),
       ).resolves.not.toThrowError(NotFoundError);
     });
   });
@@ -127,7 +127,7 @@ describe('ThreadRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
       // const registeredThread = await threadRepositoryPostgres.addThread(
       //   registerThread
@@ -151,12 +151,12 @@ describe('ThreadRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action n Assert
       await expect(
-        threadRepositoryPostgres.getThreadById(failThreadId)
+        threadRepositoryPostgres.getThreadById(failThreadId),
       ).rejects.toThrowError(NotFoundError);
     });
   });

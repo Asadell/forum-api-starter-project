@@ -14,7 +14,7 @@ class DeleteReplyUseCase {
     await this._commentRepository.validateReplyId(reply.replyId);
     await this._commentRepository.validateCommentOwner(
       reply.replyId,
-      reply.userId
+      reply.userId,
     );
 
     return this._commentRepository.deleteReply(reply.replyId);

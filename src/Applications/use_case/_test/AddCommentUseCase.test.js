@@ -44,7 +44,7 @@ describe('AddCommentUseCase', () => {
         id: 'comment-123',
         content: useCasePayload.content,
         owner: useCasePayload.userId,
-      })
+      }),
     );
     expect(mockThreadRepository.validateId).toBeCalledWith(threadId);
     expect(mockCommentRepository.addComment).toBeCalledWith(
@@ -52,7 +52,7 @@ describe('AddCommentUseCase', () => {
         content: 'content',
         threadId,
         userId: 'user-123',
-      })
+      }),
     );
   });
 });

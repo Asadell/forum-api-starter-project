@@ -27,7 +27,7 @@ describe('CommentRepositoryPostgres', () => {
       id: threadId,
       title: 'title',
       body: 'body',
-      userId: userId,
+      userId,
     });
   });
 
@@ -52,7 +52,7 @@ describe('CommentRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -74,12 +74,12 @@ describe('CommentRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
       const registeredComment = await commentRepositoryPostgres.addComment(
-        registerComment
+        registerComment,
       );
 
       // Assert
@@ -88,7 +88,7 @@ describe('CommentRepositoryPostgres', () => {
           id: commentId,
           content: registerComment.content,
           owner: userId,
-        })
+        }),
       );
     });
   });
@@ -100,7 +100,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        commentRepositoryPostgres.validateId(commentId)
+        commentRepositoryPostgres.validateId(commentId),
       ).rejects.toThrowError(NotFoundError);
     });
 
@@ -118,7 +118,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Arrange
       await expect(
-        commentRepositoryPostgres.validateId(commentId)
+        commentRepositoryPostgres.validateId(commentId),
       ).resolves.not.toThrowError(NotFoundError);
     });
   });
@@ -145,7 +145,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        commentRepositoryPostgres.validateCommentOwner(commentId, userId2)
+        commentRepositoryPostgres.validateCommentOwner(commentId, userId2),
       ).rejects.toThrowError(AuthorizationError);
     });
 
@@ -163,7 +163,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        commentRepositoryPostgres.validateCommentOwner(commentId, userId)
+        commentRepositoryPostgres.validateCommentOwner(commentId, userId),
       ).resolves.not.toThrowError(AuthorizationError);
     });
   });
@@ -195,7 +195,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        commentRepositoryPostgres.deleteComment(failCommentId)
+        commentRepositoryPostgres.deleteComment(failCommentId),
       ).rejects.toThrowError(NotFoundError);
     });
   });
@@ -215,7 +215,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action
       const getComment = await commentRepositoryPostgres.getCommentsByThreadId(
-        threadId
+        threadId,
       );
 
       // Assert
@@ -233,7 +233,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        commentRepositoryPostgres.getCommentsByThreadId(failCommentId)
+        commentRepositoryPostgres.getCommentsByThreadId(failCommentId),
       ).rejects.toThrowError(NotFoundError);
     });
   });
@@ -259,7 +259,7 @@ describe('CommentRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -281,7 +281,7 @@ describe('CommentRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -293,7 +293,7 @@ describe('CommentRepositoryPostgres', () => {
           id: replyId,
           content: reply.content,
           owner: userId,
-        })
+        }),
       );
     });
   });
@@ -305,7 +305,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Assert
       await expect(
-        commentRepositoryPostgres.validateReplyId(replyId)
+        commentRepositoryPostgres.validateReplyId(replyId),
       ).rejects.toThrowError(NotFoundError);
     });
 
@@ -328,7 +328,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Arrange
       await expect(
-        commentRepositoryPostgres.validateReplyId(replyId)
+        commentRepositoryPostgres.validateReplyId(replyId),
       ).resolves.not.toThrowError(NotFoundError);
     });
   });
@@ -368,7 +368,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action n Arrange
       await expect(
-        commentRepositoryPostgres.deleteReply(failReplyId)
+        commentRepositoryPostgres.deleteReply(failReplyId),
       ).rejects.toThrowError(NotFoundError);
     });
   });
@@ -396,7 +396,7 @@ describe('CommentRepositoryPostgres', () => {
 
       // Action
       const getReplies = await commentRepositoryPostgres.getRepliesByCommentId(
-        commentId
+        commentId,
       );
 
       // Assert

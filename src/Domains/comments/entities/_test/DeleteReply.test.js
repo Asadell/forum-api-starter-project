@@ -12,7 +12,7 @@ describe('a DeleteReply entities', () => {
 
     // Action and Assert
     expect(() => new DeleteReply(payload)).toThrowError(
-      'DELETE_REPLY.NOT_CONTAIN_NEEDED_PROPERTY'
+      'DELETE_REPLY.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
   it('should throw error when payload did not meet data type specification', () => {
@@ -26,7 +26,7 @@ describe('a DeleteReply entities', () => {
 
     // Action and Assert
     expect(() => new DeleteReply(payload)).toThrowError(
-      'DELETE_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION'
+      'DELETE_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
   it('should throw error when payload did not contain needed property', () => {

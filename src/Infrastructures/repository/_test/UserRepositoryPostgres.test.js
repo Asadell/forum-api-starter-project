@@ -22,7 +22,7 @@ describe('UserRepositoryPostgres', () => {
 
       // Action & Assert
       await expect(
-        userRepositoryPostgres.verifyAvailableUsername('dicoding')
+        userRepositoryPostgres.verifyAvailableUsername('dicoding'),
       ).rejects.toThrowError(InvariantError);
     });
 
@@ -32,7 +32,7 @@ describe('UserRepositoryPostgres', () => {
 
       // Action & Assert
       await expect(
-        userRepositoryPostgres.verifyAvailableUsername('dicoding')
+        userRepositoryPostgres.verifyAvailableUsername('dicoding'),
       ).resolves.not.toThrowError(InvariantError);
     });
   });
@@ -48,7 +48,7 @@ describe('UserRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const userRepositoryPostgres = new UserRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -69,7 +69,7 @@ describe('UserRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const userRepositoryPostgres = new UserRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -81,7 +81,7 @@ describe('UserRepositoryPostgres', () => {
           id: 'user-123',
           username: 'dicoding',
           fullname: 'Dicoding Indonesia',
-        })
+        }),
       );
     });
   });
@@ -93,7 +93,7 @@ describe('UserRepositoryPostgres', () => {
 
       // Action & Assert
       return expect(
-        userRepositoryPostgres.getPasswordByUsername('dicoding')
+        userRepositoryPostgres.getPasswordByUsername('dicoding'),
       ).rejects.toThrowError(InvariantError);
     });
 
@@ -107,7 +107,7 @@ describe('UserRepositoryPostgres', () => {
 
       // Action & Assert
       const password = await userRepositoryPostgres.getPasswordByUsername(
-        'dicoding'
+        'dicoding',
       );
       expect(password).toBe('secret_password');
     });
@@ -120,7 +120,7 @@ describe('UserRepositoryPostgres', () => {
 
       // Action & Assert
       await expect(
-        userRepositoryPostgres.getIdByUsername('dicoding')
+        userRepositoryPostgres.getIdByUsername('dicoding'),
       ).rejects.toThrowError(InvariantError);
     });
 

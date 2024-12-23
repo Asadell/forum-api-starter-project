@@ -13,7 +13,7 @@ class DeleteCommentUseCase {
     await this._commentRepository.validateId(comment.commentId);
     await this._commentRepository.validateCommentOwner(
       comment.commentId,
-      comment.userId
+      comment.userId,
     );
 
     return this._commentRepository.deleteComment(comment.commentId);

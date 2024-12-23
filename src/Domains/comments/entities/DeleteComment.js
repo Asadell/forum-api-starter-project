@@ -14,11 +14,7 @@ class DeleteComment {
       throw new Error('DELETE_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
-    if (
-      typeof commentId !== 'string' ||
-      typeof threadId !== 'string' ||
-      typeof userId !== 'string'
-    ) {
+    if (typeof commentId !== 'string' || typeof threadId !== 'string' || typeof userId !== 'string') {
       throw new Error('DELETE_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }

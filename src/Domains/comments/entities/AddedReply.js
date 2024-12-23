@@ -1,5 +1,3 @@
-const { payload } = require('@hapi/hapi/lib/validation');
-
 class AddedReply {
   constructor(payload) {
     this._verifyPayload(payload);
@@ -16,11 +14,7 @@ class AddedReply {
       throw new Error('ADDED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
-    if (
-      typeof id !== 'string' ||
-      typeof content !== 'string' ||
-      typeof owner !== 'string'
-    ) {
+    if (typeof id !== 'string' || typeof content !== 'string' || typeof owner !== 'string') {
       throw new Error('ADDED_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }

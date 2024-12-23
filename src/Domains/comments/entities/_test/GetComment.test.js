@@ -12,7 +12,7 @@ describe('a GetComment entities', () => {
 
     // Action and Assert
     expect(() => new GetComment(payload)).toThrowError(
-      'GET_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY'
+      'GET_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
 
@@ -27,7 +27,7 @@ describe('a GetComment entities', () => {
 
     // Action and Assert
     expect(() => new GetComment(payload)).toThrowError(
-      'GET_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION'
+      'GET_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
 

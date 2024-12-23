@@ -39,7 +39,7 @@ describe('AddThreadUseCase', () => {
         id: 'thread-V1StGXR8_Z5jdHi6B-myT',
         title: useCasePayload.title,
         owner: useCasePayload.userId,
-      })
+      }),
     );
 
     expect(mockThreadRepository.addThread).toBeCalledWith(
@@ -47,7 +47,7 @@ describe('AddThreadUseCase', () => {
         title: useCasePayload.title,
         body: 'Dicoding Indonesia',
         userId: useCasePayload.userId,
-      })
+      }),
     );
   });
 });

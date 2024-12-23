@@ -12,7 +12,7 @@ describe('a GetReply entities', () => {
 
     // Action and Assert
     expect(() => new GetReply(payload)).toThrowError(
-      'GET_REPLY.NOT_CONTAIN_NEEDED_PROPERTY'
+      'GET_REPLY.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
 
@@ -27,7 +27,7 @@ describe('a GetReply entities', () => {
 
     // Action and Assert
     expect(() => new GetReply(payload)).toThrowError(
-      'GET_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION'
+      'GET_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
 

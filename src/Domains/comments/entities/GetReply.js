@@ -15,12 +15,7 @@ class GetReply {
       throw new Error('GET_REPLY.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
-    if (
-      typeof id !== 'string' ||
-      typeof content !== 'string' ||
-      typeof date !== 'string' ||
-      typeof username !== 'string'
-    ) {
+    if (typeof id !== 'string' || typeof content !== 'string' || typeof date !== 'string' || typeof username !== 'string') {
       throw new Error('GET_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }

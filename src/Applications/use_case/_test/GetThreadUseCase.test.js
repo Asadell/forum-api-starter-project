@@ -1,6 +1,4 @@
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
-const GetComment = require('../../../Domains/comments/entities/GetComment');
-const GetReply = require('../../../Domains/comments/entities/GetReply');
 const GetThread = require('../../../Domains/threads/entities/GetThread');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const GetThreadUseCase = require('../GetThreadUseCase');
@@ -91,18 +89,10 @@ describe('GetThreadUseCase', () => {
 
     expect(getThread).toMatchObject(expected);
 
-    expect(mockThreadRepository.validateId).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      'comment-_pby2_tmXV6bcvcdev8xk'
-    );
+    expect(mockThreadRepository.validateId).toBeCalledWith(useCasePayload.threadId);
+    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
+    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
+    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith('comment-_pby2_tmXV6bcvcdev8xk');
   });
 
   it('should return deleted comment', async () => {
@@ -173,15 +163,9 @@ describe('GetThreadUseCase', () => {
 
     expect(getThread).toMatchObject(expected);
     expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
-    );
+    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
+    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
+    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(mockGetComment[0].id);
   });
 
   it('should return with replies', async () => {
@@ -282,14 +266,8 @@ describe('GetThreadUseCase', () => {
 
     expect(getThread).toMatchObject(expected);
     expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
-    );
-    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
-    );
+    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
+    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
+    expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(mockGetComment[0].id);
   });
 });

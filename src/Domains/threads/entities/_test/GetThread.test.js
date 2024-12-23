@@ -13,7 +13,7 @@ describe('a GetThread entities', () => {
 
     // Action and Assert
     expect(() => new GetThread(payload)).toThrowError(
-      'GET_THREAD.NOT_CONTAIN_NEEDED_PROPERTY'
+      'GET_THREAD.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
 
@@ -29,7 +29,7 @@ describe('a GetThread entities', () => {
 
     // Action and Assert
     expect(() => new GetThread(payload)).toThrowError(
-      'GET_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION'
+      'GET_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
 

@@ -15,7 +15,7 @@ class CommentsHandler {
 
   async postCommentHandler(request, h) {
     const addCommentUseCase = this._container.getInstance(
-      AddCommentUseCase.name
+      AddCommentUseCase.name,
     );
 
     const addedComment = await addCommentUseCase.execute({
@@ -35,7 +35,7 @@ class CommentsHandler {
 
   async deleteCommentHandler(request, h) {
     const deleteCommentUseCase = this._container.getInstance(
-      DeleteCommentUseCase.name
+      DeleteCommentUseCase.name,
     );
 
     await deleteCommentUseCase.execute({
@@ -71,7 +71,7 @@ class CommentsHandler {
 
   async deleteReplyHandler(request, h) {
     const deleteReplyUseCase = this._container.getInstance(
-      DeleteReplyUseCase.name
+      DeleteReplyUseCase.name,
     );
 
     await deleteReplyUseCase.execute({
