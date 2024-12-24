@@ -3,6 +3,7 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const NotFoundError = require('../../../Commons/exceptions/NotFoundError');
 const AddedThread = require('../../../Domains/threads/entities/AddedThread');
 const AddThread = require('../../../Domains/threads/entities/AddThread');
+const GetThread = require('../../../Domains/threads/entities/GetThread');
 const pool = require('../../database/postgres/pool');
 const ThreadRepositoryPostgres = require('../ThreadRepositoryPostgres');
 
@@ -112,36 +113,33 @@ describe('ThreadRepositoryPostgres', () => {
   describe('getThreadById function', () => {
     it('should get thread correctly', async () => {
       // Arrange
-      const registerThread = new AddThread({
-        title: 'dicoding',
-        body: 'Dicoding Indonesia',
-        userId,
-      });
       await ThreadsTableTestHelper.addThread({
         id: threadId,
         title: 'dicoding',
         body: 'Dicoding Indonesia',
         userId,
       });
+      const expectedDate = await ThreadsTableTestHelper.getThreadDateById({ threadId });
 
       const fakeIdGenerator = () => '123'; // stub!
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(
         pool,
         fakeIdGenerator,
       );
-      // const registeredThread = await threadRepositoryPostgres.addThread(
-      //   registerThread
-      // );
 
       // Action
       const getThread = await threadRepositoryPostgres.getThreadById(threadId);
 
       // Assert
-      expect(getThread.id).toEqual(threadId);
-      expect(getThread.title).toEqual(registerThread.title);
-      expect(getThread.body).toEqual(registerThread.body);
-      expect(getThread).toHaveProperty('date');
-      expect(getThread.username).toEqual('asadel');
+      expect(getThread).toStrictEqual(
+        new GetThread({
+          id: threadId,
+          title: 'dicoding',
+          body: 'Dicoding Indonesia',
+          date: expectedDate,
+          username: 'asadel',
+        }),
+      );
     });
 
     it('should throw NotFoundError when thread not found', async () => {

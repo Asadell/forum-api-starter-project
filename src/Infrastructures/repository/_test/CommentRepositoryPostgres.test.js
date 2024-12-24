@@ -210,6 +210,7 @@ describe('CommentRepositoryPostgres', () => {
         userId,
       };
       await CommentsTableTestHelper.addComment(comment);
+      const expectedDate = await CommentsTableTestHelper.getCommentDateById({ commentId });
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
@@ -219,11 +220,17 @@ describe('CommentRepositoryPostgres', () => {
       );
 
       // Assert
-      expect(getComment[0].id).toEqual(commentId);
-      expect(getComment[0].username).toEqual('asadel');
-      expect(getComment[0]).toHaveProperty('date');
-      expect(getComment[0].content).toEqual(comment.content);
-      expect(getComment[0].is_delete).toEqual(false);
+      expect(getComment).toStrictEqual(
+        [
+          {
+            id: commentId,
+            username: 'asadel',
+            date: expectedDate,
+            content: 'content',
+            is_delete: false,
+          },
+        ],
+      );
     });
 
     it('should throw NotFoundError when comment not found', async () => {
@@ -391,6 +398,7 @@ describe('CommentRepositoryPostgres', () => {
       };
       await CommentsTableTestHelper.addComment(comment);
       await CommentsTableTestHelper.addReply(reply);
+      const expectedDate = await CommentsTableTestHelper.getCommentDateById({ commentId: replyId });
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
@@ -400,11 +408,17 @@ describe('CommentRepositoryPostgres', () => {
       );
 
       // Assert
-      expect(getReplies[0].id).toEqual(replyId);
-      expect(getReplies[0].content).toEqual(reply.content);
-      expect(getReplies[0]).toHaveProperty('date');
-      expect(getReplies[0].username).toEqual('asadel');
-      expect(getReplies[0].is_delete).toEqual(false);
+      expect(getReplies).toStrictEqual(
+        [
+          {
+            id: replyId,
+            content: 'reply content',
+            date: expectedDate,
+            username: 'asadel',
+            is_delete: false,
+          },
+        ],
+      );
     });
   });
 });

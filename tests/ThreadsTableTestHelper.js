@@ -14,6 +14,17 @@ const ThreadsTableTestHelper = {
     return result.rows;
   },
 
+  async getThreadDateById({ threadId }) {
+    const query = {
+      text: 'SELECT inserted_at::text AS date FROM threads WHERE id = $1',
+      values: [threadId],
+    };
+
+    const response = await pool.query(query);
+
+    return response.rows[0].date;
+  },
+
   async findThreadById(threadId) {
     const query = {
       text: 'SELECT 1 FROM threads WHERE id = $1',

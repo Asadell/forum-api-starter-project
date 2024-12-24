@@ -13,6 +13,17 @@ const CommentsTableTestHelper = {
     return response.rows[0];
   },
 
+  async getCommentDateById({ commentId }) {
+    const query = {
+      text: 'SELECT inserted_at::text as date FROM comments WHERE id = $1',
+      values: [commentId],
+    };
+
+    const response = await pool.query(query);
+
+    return response.rows[0].date;
+  },
+
   async addReply({ id, content, threadId, commentId, userId }) {
     const query = {
       text: 'INSERT INTO comments VALUES($1, $2, $3, $4, $5) RETURNING id',
@@ -31,6 +42,7 @@ const CommentsTableTestHelper = {
     };
 
     const result = await pool.query(query);
+
     return result.rows;
   },
 
