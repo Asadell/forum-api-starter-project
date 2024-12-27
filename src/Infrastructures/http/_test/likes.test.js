@@ -15,9 +15,9 @@ const requestPayloadThread = {
   body: 'newThreadBody',
 };
 
-let server = null,
-  accessToken = null,
-  userId = null;
+let server = null;
+let accessToken = null;
+let userId = null;
 
 describe('likes endpoint', () => {
   beforeAll(async () => {

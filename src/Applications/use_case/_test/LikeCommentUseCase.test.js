@@ -42,10 +42,10 @@ describe('LikeCommentUseCase', () => {
 
     // Assert
     expect(mockThreadRepository.validateId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.validateId).toBeCalledWith(
-      useCasePayload.commentId
+      useCasePayload.commentId,
     );
     expect(mockLikeRepository.validateLikeExist).toBeCalledWith(useCasePayload);
     expect(mockLikeRepository.addLike).toBeCalledWith(useCasePayload);
@@ -88,10 +88,10 @@ describe('LikeCommentUseCase', () => {
 
     // Assert
     expect(mockThreadRepository.validateId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.validateId).toBeCalledWith(
-      useCasePayload.commentId
+      useCasePayload.commentId,
     );
     expect(mockLikeRepository.validateLikeExist).toBeCalledWith(useCasePayload);
     expect(mockLikeRepository.deleteLike).toBeCalledWith(useCasePayload);

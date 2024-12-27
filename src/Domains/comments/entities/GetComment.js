@@ -2,8 +2,7 @@ class GetComment {
   constructor(payload) {
     this._verifyPayload(payload);
 
-    const { id, username, date, content, is_delete, replies, likeCount } =
-      payload;
+    const { id, username, date, content, is_delete, replies, likeCount } = payload;
 
     this.id = id;
     this.username = username;
@@ -24,10 +23,10 @@ class GetComment {
     }
 
     if (
-      typeof id !== 'string' ||
-      typeof username !== 'string' ||
-      typeof date !== 'string' ||
-      typeof content !== 'string'
+      typeof id !== 'string'
+      || typeof username !== 'string'
+      || typeof date !== 'string'
+      || typeof content !== 'string'
     ) {
       throw new Error('GET_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }

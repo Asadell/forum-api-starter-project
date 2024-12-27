@@ -57,7 +57,7 @@ describe('LikeRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -83,7 +83,7 @@ describe('LikeRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action
@@ -109,12 +109,12 @@ describe('LikeRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action n Assert
       await expect(
-        likeRepositoryPostgres.deleteLike(like)
+        likeRepositoryPostgres.deleteLike(like),
       ).rejects.toThrowError(NotFoundError);
     });
   });
@@ -132,12 +132,12 @@ describe('LikeRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action n Assert
       await expect(
-        likeRepositoryPostgres.validateLikeExist(like)
+        likeRepositoryPostgres.validateLikeExist(like),
       ).resolves.toEqual(0);
     });
 
@@ -153,12 +153,12 @@ describe('LikeRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action n Assert
       await expect(
-        likeRepositoryPostgres.validateLikeExist(like)
+        likeRepositoryPostgres.validateLikeExist(like),
       ).resolves.toEqual(1);
     });
   });
@@ -176,12 +176,12 @@ describe('LikeRepositoryPostgres', () => {
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(
         pool,
-        fakeIdGenerator
+        fakeIdGenerator,
       );
 
       // Action n Assert
       await expect(
-        likeRepositoryPostgres.getLikesByCommentId(commentId)
+        likeRepositoryPostgres.getLikesByCommentId(commentId),
       ).resolves.toEqual(1);
     });
   });

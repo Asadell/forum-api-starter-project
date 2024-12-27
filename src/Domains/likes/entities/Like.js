@@ -15,9 +15,9 @@ class Like {
     }
 
     if (
-      typeof threadId !== 'string' ||
-      typeof commentId !== 'string' ||
-      typeof userId !== 'string'
+      typeof threadId !== 'string'
+      || typeof commentId !== 'string'
+      || typeof userId !== 'string'
     ) {
       throw new Error('LIKE.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }

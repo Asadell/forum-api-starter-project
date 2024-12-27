@@ -13,25 +13,24 @@ class GetThreadUseCase {
     await this._threadRepository.validateId(threadId);
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getCommentsByThreadId(
-      threadId
+      threadId,
     );
 
     thread.comments = await Promise.all(
       comments.map(async (comment) => {
         const replies = await this._commentRepository.getRepliesByCommentId(
-          comment.id
+          comment.id,
         );
         const likeCount = await this._likeRepository.getLikesByCommentId(
-          comment.id
+          comment.id,
         );
-        comment.likeCount = likeCount;
+        const commentCopy = { ...comment, likeCount };
 
-        const commentWithReplies = new GetComment(comment);
-        commentWithReplies.replies =
-          replies.length > 0 ? replies.map((reply) => new GetReply(reply)) : [];
+        const commentWithReplies = new GetComment(commentCopy);
+        commentWithReplies.replies = replies.length > 0 ? replies.map((reply) => new GetReply(reply)) : [];
 
         return commentWithReplies;
-      })
+      }),
     );
 
     return thread;

@@ -9,7 +9,7 @@ class LikesCommentHandler {
 
   async putLikesCommenthandler(request, h) {
     const likeCommentUseCase = this._container.getInstance(
-      LikeCommentUseCase.name
+      LikeCommentUseCase.name,
     );
     await likeCommentUseCase.execute({
       ...request.params,

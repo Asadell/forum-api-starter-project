@@ -99,19 +99,19 @@ describe('GetThreadUseCase', () => {
     expect(getThread).toStrictEqual(expected);
 
     expect(mockThreadRepository.validateId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      'comment-_pby2_tmXV6bcvcdev8xk'
+      'comment-_pby2_tmXV6bcvcdev8xk',
     );
     expect(mockLikeRepository.getLikesByCommentId).toBeCalledWith(
-      'comment-_pby2_tmXV6bcvcdev8xk'
+      'comment-_pby2_tmXV6bcvcdev8xk',
     );
   });
 
@@ -190,16 +190,16 @@ describe('GetThreadUseCase', () => {
     expect(getThread).toStrictEqual(expected);
     expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
+      mockGetComment[0].id,
     );
     expect(mockLikeRepository.getLikesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
+      mockGetComment[0].id,
     );
   });
 
@@ -308,16 +308,16 @@ describe('GetThreadUseCase', () => {
     expect(getThread).toStrictEqual(expected);
     expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
+      mockGetComment[0].id,
     );
     expect(mockLikeRepository.getLikesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
+      mockGetComment[0].id,
     );
   });
 
@@ -426,16 +426,16 @@ describe('GetThreadUseCase', () => {
     expect(getThread).toStrictEqual(expected);
     expect(mockThreadRepository.validateId).toBeCalledWith(mockGetThread.id);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(
-      useCasePayload.threadId
+      useCasePayload.threadId,
     );
     expect(mockCommentRepository.getRepliesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
+      mockGetComment[0].id,
     );
     expect(mockLikeRepository.getLikesByCommentId).toBeCalledWith(
-      mockGetComment[0].id
+      mockGetComment[0].id,
     );
   });
 });

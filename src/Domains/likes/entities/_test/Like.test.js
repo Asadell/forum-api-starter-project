@@ -11,7 +11,7 @@ describe('a Like entities', () => {
 
     // Action and Assert
     expect(() => new Like(payload)).toThrowError(
-      'LIKE.NOT_CONTAIN_NEEDED_PROPERTY'
+      'LIKE.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
 
@@ -25,7 +25,7 @@ describe('a Like entities', () => {
 
     // Action and Assert
     expect(() => new Like(payload)).toThrowError(
-      'LIKE.NOT_MEET_DATA_TYPE_SPECIFICATION'
+      'LIKE.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
 
