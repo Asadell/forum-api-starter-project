@@ -10,7 +10,7 @@
     "test": "jest --setupFiles dotenv/config -i",
     "test:watch:change": "jest --watch --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --coverage --setupFiles dotenv/config -i",
-    "test:postman": "newman run ./test_postman/Forum_API_V1_Test.postman_collection.json --environment ./test_postman/Forum_API_V1_Test.postman_environment.json",
+    "test:postman": "newman run ./test_postman/Forum_API_V2_Test.postman_collection.json --environment ./test_postman/Forum_API_V2_Test.postman_environment.json",
     "migrate": "node-pg-migrate",
     "migrate:test": "node-pg-migrate -f config/database/test.json"
   },

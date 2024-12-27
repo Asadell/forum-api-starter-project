@@ -2,12 +2,14 @@ class GetComment {
   constructor(payload) {
     this._verifyPayload(payload);
 
-    const { id, username, date, content, is_delete, replies } = payload;
+    const { id, username, date, content, is_delete, replies, likeCount } =
+      payload;
 
     this.id = id;
     this.username = username;
     this.date = date;
     this.replies = replies;
+    this.likeCount = likeCount;
 
     if (is_delete === true) {
       this.content = '**komentar telah dihapus**';
@@ -21,7 +23,12 @@ class GetComment {
       throw new Error('GET_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
-    if (typeof id !== 'string' || typeof username !== 'string' || typeof date !== 'string' || typeof content !== 'string') {
+    if (
+      typeof id !== 'string' ||
+      typeof username !== 'string' ||
+      typeof date !== 'string' ||
+      typeof content !== 'string'
+    ) {
       throw new Error('GET_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }
