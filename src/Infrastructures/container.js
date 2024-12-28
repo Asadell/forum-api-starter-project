@@ -117,20 +117,20 @@ container.register([
       ],
     },
   },
-  // {
-  //   key: LikeRepository.name,
-  //   Class: LikeRepositoryPostgres,
-  //   parameter: {
-  //     dependencies: [
-  //       {
-  //         concrete: pool,
-  //       },
-  //       {
-  //         concrete: nanoid,
-  //       },
-  //     ],
-  //   },
-  // },
+  {
+    key: LikeRepository.name,
+    Class: LikeRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        {
+          concrete: pool,
+        },
+        {
+          concrete: nanoid,
+        },
+      ],
+    },
+  },
 ]);
 
 // registering use cases
