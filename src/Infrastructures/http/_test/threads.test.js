@@ -158,27 +158,27 @@ describe('/threads endpoint', () => {
     });
 
     // Add Thread with Bad Payload
-    // it('should response 404 when threadId not found', async () => {
-    //   // Arrange
-    //   const server = await createServer(container);
+    it('should response 404 when threadId not found', async () => {
+      // Arrange
+      const server = await createServer(container);
 
-    //   const { accessToken } = await ServerTestHelper.getAccessToken({ server });
-    //   const failThreadId = 'thread-321';
+      const { accessToken } = await ServerTestHelper.getAccessToken({ server });
+      const failThreadId = 'thread-321';
 
-    //   // Action
-    //   const response = await server.inject({
-    //     method: 'GET',
-    //     url: `/threads/${failThreadId}`,
-    //     headers: {
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   });
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: `/threads/${failThreadId}`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-    //   // Assert
-    //   const responseJson = JSON.parse(response.payload);
-    //   expect(response.statusCode).toEqual(404);
-    //   expect(responseJson.status).toEqual('fail');
-    //   expect(responseJson.message).toBeDefined();
-    // });
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(404);
+      expect(responseJson.status).toEqual('fail');
+      expect(responseJson.message).toBeDefined();
+    });
   });
 });
